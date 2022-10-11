@@ -1,8 +1,8 @@
 
 // ignore_for_file: constant_identifier_names
 
-const String BASE_URL = 'http://192.168.1.24/e-pilkades-nania/public';
-// const String BASE_URL = 'http://e-pilkades-nania.herokuapp.com';
+// const String BASE_URL = 'http://192.168.183.82/e-pilkades-nania/public';
+const String BASE_URL = 'http://e-pilkades-nania.herokuapp.com';
 const String BASE_API_URL = '$BASE_URL/api/v1';
 const String LOGOUT_URL = '$BASE_API_URL/keluar';
 const String LOGIN_URL = '$BASE_API_URL/masuk';
@@ -20,6 +20,6 @@ const String HASIL_PEMILIHAN_URL = '$BASE_API_URL/hasil-pemilihan';
 const int REQUEST_SUCCESS = 200;
 const int UNAUTHORIZED = 401;
 const int INTERNET_ERROR = 503;
-const int TIME_DURATION = 300;
+const int TIME_DURATION = 60;
 const int BAD_REQUEST = 30;
 const int REQUEST_TIME_OUT = 408;

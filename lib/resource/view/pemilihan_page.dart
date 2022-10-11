@@ -81,7 +81,17 @@ class _PemilihanPageState extends State<PemilihanPage> {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           fit: BoxFit.contain,
-                                          image: NetworkImage(kades.foto != null ? BASE_URL + kades.foto! : '' ),
+                                          image: NetworkImage(
+                                            kades.foto != null
+                                                ? BASE_URL + kades.foto!
+                                                : '',
+                                          ),
+                                          onError: (Object exception,
+                                              StackTrace? stackTrace) {
+                                            print('onError');
+                                            print('Exception: $exception');
+                                            print('Stack Trace:\n$stackTrace');
+                                          },
                                         ),
                                       ),
                                     ),
@@ -95,33 +105,48 @@ class _PemilihanPageState extends State<PemilihanPage> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
+                                            child: Obx(
+                                          () => ElevatedButton(
+                                            onPressed: !periodeC.onLoading.value
+                                                ? () {
+                                                    Navigator.pop(context);
+                                                  }
+                                                : null,
                                             child: const Text("Batal"),
                                             style: ElevatedButton.styleFrom(
                                               primary: primaryColor,
                                             ),
                                           ),
-                                        ),
+                                        )),
                                         const SizedBox(width: 12),
                                         Expanded(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              periodeC
-                                                  .pilih(kades.id!)
-                                                  .then((value) async {
-                                                if (value) {
-                                                  showInfoDialog();
-                                                }
-                                              });
-                                            },
-                                            child: const Text("Pilih"),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.green,
-                                            ),
-                                          ),
+                                          child: Obx(() => ElevatedButton(
+                                                onPressed: !periodeC
+                                                        .onLoading.value
+                                                    ? () {
+                                                        periodeC.onLoading
+                                                            .value = true;
+                                                        periodeC
+                                                            .pilih(kades.idCalkadesPeriode!)
+                                                            .then(
+                                                                (value) async {
+                                                          periodeC.onLoading
+                                                              .value = false;
+
+                                                          if (value) {
+                                                            showInfoDialog();
+                                                          }
+                                                        });
+                                                      }
+                                                    : null,
+                                                child: Text(
+                                                    (!periodeC.onLoading.value
+                                                        ? "Pilih"
+                                                        : "Loading...")),
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.green,
+                                                ),
+                                              )),
                                         )
                                       ],
                                     )
@@ -141,22 +166,25 @@ class _PemilihanPageState extends State<PemilihanPage> {
     );
   }
 
-  Future<void> showInfoDialog()async {
+  Future<void> showInfoDialog() async {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return  AlertDialog(
+          return AlertDialog(
             title: const Text("Selamat"),
             content: const Text("Pilihanmu telah di kirim"),
             actions: [
-              ElevatedButton(onPressed: (){
-                periodeC.pesan.value = "Terima kasih telah melakukan pemilihan Kepala Desa Nania. Hasil akan di tampilkan setelah selesai pemilihan.";
-                periodeC.aktif.value = false;
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              }, child: const Text("OK"))
+              ElevatedButton(
+                  onPressed: () {
+                    periodeC.pesan.value =
+                        "Terima kasih telah melakukan pemilihan Kepala Desa Nania. Hasil akan di tampilkan setelah selesai pemilihan.";
+                    periodeC.aktif.value = false;
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: const Text("OK"))
             ],
           );
         });

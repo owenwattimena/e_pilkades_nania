@@ -1,5 +1,6 @@
 class Calkades {
   final int? id;
+  final int? idCalkadesPeriode;
   final String? nama;
   final String? tempatLahir;
   final DateTime? tanggalLahir;
@@ -15,6 +16,7 @@ class Calkades {
 
   Calkades(
       {this.id,
+      this.idCalkadesPeriode,
       this.nama,
       this.tempatLahir,
       this.tanggalLahir,
@@ -32,6 +34,7 @@ class Calkades {
    
     return Calkades(
         id: map['id'],
+        idCalkadesPeriode: map['id_calkades_periode'],
         nama: map['nama'],
         tempatLahir: map['tempat_lahir'],
         tanggalLahir: map['tanggal_lahir'] != null

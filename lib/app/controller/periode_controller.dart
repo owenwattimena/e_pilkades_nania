@@ -14,6 +14,7 @@ class PeriodeController extends GetxController {
   RxBool aktif = false.obs;
   RxBool sudahPilih = false.obs;
   RxBool lihatHasil = false.obs;
+  RxBool onLoading = false.obs;
 
 
   @override
