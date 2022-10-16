@@ -13,6 +13,7 @@ const String PERIODE_URL = '$BASE_API_URL/periode-aktif';
 const String PEMILIHAN_URL = '$BASE_API_URL/pemilihan';
 const String CHECK_PEMILIHAN_URL = '$BASE_API_URL/pemilihan-check'; 
 const String HASIL_PEMILIHAN_URL = '$BASE_API_URL/hasil-pemilihan';
+const String TOTAL_SUARA_URL = '$BASE_API_URL/hasil-pemilihan/total-suara';
 // const String HOBBIES_URL = BASE_API_URL + '/references/hobi';
 // const String TREATMENT_URL = BASE_API_URL + '/treatment';
 // const String IDENTITIES_URL = BASE_API_URL + '/identies';

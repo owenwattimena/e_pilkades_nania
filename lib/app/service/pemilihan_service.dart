@@ -2,6 +2,7 @@ import 'package:e_pilkades_nania/app/model/hasil_pemilihan.dart';
 
 import '../../config/constant.dart';
 import '../model/api_return_value.dart';
+import '../model/total_suara.dart';
 import 'http.dart';
 import 'store_service.dart';
 
@@ -38,5 +39,21 @@ class PemilihanService {
         statusCode: result.statusCode,
         success: result.success,
         data: hasil);
+  }
+ 
+  static Future<ApiReturnValue> totalSuara() async {
+    final token = await StoreService.getString("token");
+
+    final result = await Http.get(TOTAL_SUARA_URL, token: token);
+
+    if (!result.success || result.data == null) return result;
+
+    TotalSuara totalSuara = TotalSuara(total: result.data['jumlah_suara']);
+
+    return ApiReturnValue(
+        message: result.message,
+        statusCode: result.statusCode,
+        success: result.success,
+        data: totalSuara);
   }
 }
